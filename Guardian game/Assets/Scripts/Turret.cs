@@ -25,6 +25,8 @@ public class Turret : MonoBehaviour
     {
         spawner = GameObject.FindGameObjectWithTag("Game").GetComponent<EnemySpawner>();
         StartCoroutine(DestroySelf());
+
+        Events.events.onEnemyDeath += EnemyKilled;
     }
 
     private void Update()
@@ -35,8 +37,11 @@ public class Turret : MonoBehaviour
             {
                 float distance = (enemy.transform.localPosition - transform.localPosition).magnitude;
 
-                if (distance <= range)
-                    enemies.Add(enemy);
+                if (!enemies.Contains(enemy))
+                {
+                    if (distance <= range)
+                        enemies.Add(enemy);
+                }
             }
         }
 
@@ -98,5 +103,16 @@ public class Turret : MonoBehaviour
 
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
+    }
+
+    void EnemyKilled(GameObject enemy)
+    {
+        if (enemies.Contains(enemy))
+            enemies.Remove(enemy);
+    }
+
+    private void OnDestroy()
+    {
+        Events.events.onEnemyDeath -= EnemyKilled; 
     }
 }

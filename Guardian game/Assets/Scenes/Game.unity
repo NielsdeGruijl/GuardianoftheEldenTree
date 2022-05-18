@@ -155,9 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 2014506264}
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 2650966904614450663, guid: c66796b33109d914c8ef738727085efc, type: 3}
   guardian: {fileID: 1011184975}
-  player: {fileID: 0}
+  player: {fileID: 1410326155}
   enemies: []
 --- !u!4 &55694788
 Transform:
@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55694786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2540454, y: 0.08846764, z: -3.394454}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -183,7 +183,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 62f87a12223d8cf4cbdc26b9d9b967bb, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -281,6 +281,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b11106eb23dd74c98eeca7d5045bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds:
+  - clip: {fileID: 8300000, guid: 62f87a12223d8cf4cbdc26b9d9b967bb, type: 3}
+    volume: 1
+    name: EnemyDeath
 --- !u!1 &72093600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,8 +1057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5842b3abe3cac48a102b0ffd693934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 55694787}
-  acorn: {fileID: 3664519284684184510, guid: 7a74ab5d91037714a9ee71fda11d4eab, type: 3}
   health: 0
   healthBar: {fileID: 815760103}
 --- !u!4 &1011184977

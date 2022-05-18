@@ -11,28 +11,25 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject guardian;
     [SerializeField] Player player;
     AudioManager audioManager;
-    EnemySpawner enemySpawner;
 
     public List<GameObject> enemies = new List<GameObject>();
 
-    int axis;
-    float spawnDelay = 2;
-
-    float spawnDelayDecrease = 0.05f;
+    float spawnDelay = 2f;
+    float increaseDifficultyDelay = 5f;
 
     bool canIncreaseDifficulty = true;
-
-    bool coroutineOver = true;
+    bool canSpawnEnemy = true;
 
     private void Start()
     {
         audioManager = gameObject.GetComponent<AudioManager>();
-        enemySpawner = gameObject.GetComponent<EnemySpawner>();
+
+        Events.events.onEnemyDeath += EnemyKilled;
     }
 
     private void Update()
     {
-        if(coroutineOver)
+        if(canSpawnEnemy)
             StartCoroutine(spawnEnemies(enemyPrefab));
 
         if (canIncreaseDifficulty && spawnDelay >= 0.5f)
@@ -54,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator spawnEnemies(GameObject prefab)
     {
-        coroutineOver = false;
+        canSpawnEnemy = false;
 
         GameObject enemy = Instantiate(prefab, GetSpawnPoint(), Quaternion.identity);
         Enemy enemyScript = enemy.GetComponent<Enemy>();
@@ -62,23 +59,35 @@ public class EnemySpawner : MonoBehaviour
         enemies.Add(enemy);
         yield return new WaitForSeconds(spawnDelay);
 
-        coroutineOver = true;
+        canSpawnEnemy = true;
+    }
+
+    void AssignEnemyValues(Enemy enemy)
+    {
+        enemy.eldenTree = guardian;
+        enemy.player = player;
+        enemy.audioManager = audioManager;
     }
 
     IEnumerator IncreaseDifficulty()
     {
         canIncreaseDifficulty = false;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(increaseDifficultyDelay);
         spawnDelay -= spawnDelay / 10;
-        Debug.Log("spawn delay: " + (spawnDelay * 60));
+        //Debug.Log("spawn delay: " + (spawnDelay + " seconds"));
         canIncreaseDifficulty = true;
     }
 
-    void AssignEnemyValues(Enemy enemy)
+    private void EnemyKilled(GameObject enemy)
     {
-        enemy.guardian = guardian;
-        enemy.player = player;
-        enemy.audioManager = audioManager;
-        enemy.spawner = enemySpawner;
+        if (enemies.Contains(enemy))
+            enemies.Remove(enemy);
+
+        Debug.Log("Enemy removed from spawner list!");
+    }
+
+    private void OnDestroy()
+    {
+        Events.events.onEnemyDeath -= EnemyKilled;
     }
 }

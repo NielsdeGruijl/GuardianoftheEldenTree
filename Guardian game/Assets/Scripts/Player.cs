@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     Vector2 dir;
     float bulletSpeed = 10f;
     float clickFireRate = 0.1f;
-    float holdFireRate = 0.15f;
+    //float holdFireRate = 0.15f;
     bool canShoot = true;
     
     private void Start()
@@ -50,12 +50,11 @@ public class Player : MonoBehaviour
     private void Update()
     {
         MovementInput();
+        SpriteFlipping();
         shoot();
         Ability();
 
         bulletOrigin = shootPoint.transform.position;
-
-        SpriteFlipping();
     }
 
     private void FixedUpdate()
@@ -75,18 +74,6 @@ public class Player : MonoBehaviour
     {
         if (canShoot)
         { 
-/*            if(Input.GetMouseButton(0))
-            {
-                GameObject projectile = Instantiate(bullet, bulletOrigin, Quaternion.identity);
-                shootSFX.PlayOneShot(shootSFX.clip);
-
-                Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-
-                dir = dir.normalized;
-                rb.velocity = dir * bulletSpeed;
-
-                StartCoroutine(shootCD(holdFireRate));
-            }*/
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject projectile = Instantiate(bullet, bulletOrigin, Quaternion.identity);
