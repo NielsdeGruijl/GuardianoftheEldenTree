@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] List<Sound> sounds = new List<Sound>();
     AudioSource source;
 
+    public float SFXVolume;
+    public float MusicVolume;
+
     private void Awake()
     {
         if (manager != null && manager != this)
@@ -23,24 +26,29 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string clipName)
     {
+        source.loop = false;
+
         foreach(Sound sound in sounds)
         {
             if (sound.name == clipName)
+            {
+                AdjustSoundValues(source, sound);
                 source.PlayOneShot(sound.clip);
+            }
+                
         }
     }
 
-
-
-    AudioSource enemyDeathClip;
-
-    void Start()
+    public void PlayOnLoop()
     {
-        enemyDeathClip = GetComponent<AudioSource>();
+        source.loop = true;
+
+        
+
     }
 
-    public void PlayEnemyDeathSound()
+    private void AdjustSoundValues(AudioSource source, Sound sound)
     {
-        enemyDeathClip.PlayOneShot(enemyDeathClip.clip);
+        source.volume = sound.volume;
     }
 }

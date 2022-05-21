@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
 
     [Header("Abilities")]
     [SerializeField] GameObject turret;
-    [SerializeField] AudioSource turretAudio;
 
     [Header("UI")]
     [SerializeField] GameObject XPbar;
@@ -20,7 +19,7 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rb;
     SpriteRenderer sprite;
-    AudioSource shootSFX;
+    AudioManager audioManager;
 
     //player variables
     Vector2 movementDir = new Vector2(0, 0);
@@ -43,7 +42,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        shootSFX = GetComponent<AudioSource>();
+        audioManager = AudioManager.manager;
     }
 
 
@@ -77,7 +76,7 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject projectile = Instantiate(bullet, bulletOrigin, Quaternion.identity);
-                shootSFX.PlayOneShot(shootSFX.clip);
+                audioManager.PlaySFX("MainAttack");
 
                 Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
@@ -118,7 +117,7 @@ public class Player : MonoBehaviour
         if (XP >= maxXP && Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(turret, transform.position, Quaternion.identity);
-            turretAudio.Play();
+            audioManager.PlaySFX("TurretSummon");
             XP = 0;
             XPbar.transform.localScale = new Vector3(XP / maxXP, XPbar.transform.localScale.y);
         }

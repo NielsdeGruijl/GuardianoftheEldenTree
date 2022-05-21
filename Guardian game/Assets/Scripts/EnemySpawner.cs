@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        audioManager = gameObject.GetComponent<AudioManager>();
+        audioManager = AudioManager.manager;
 
         Events.events.onEnemyDeath += EnemyKilled;
     }
