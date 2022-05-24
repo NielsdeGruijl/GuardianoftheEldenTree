@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
         {
             player.EnemyKilled();
 
-            audioManager.PlaySFX("EnemyDeath");
+            audioManager.PlayAudio("EnemyDeath");
 
             Destroy(gameObject);
         }

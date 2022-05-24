@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager manager;
 
     [SerializeField] List<Sound> sounds = new List<Sound>();
-    AudioSource source;
 
-    public float SFXVolume;
-    public float MusicVolume;
+    public float SFXVolume = 1;
+    public float MusicVolume = 1;
 
     private void Awake()
     {
@@ -20,35 +18,56 @@ public class AudioManager : MonoBehaviour
         else
             manager = this;
 
-        source = GetComponent<AudioSource>();
-        source.playOnAwake = false;
+        foreach(Sound sound in sounds)
+        {
+            sound.source = gameObject.AddComponent<AudioSource>();
+            sound.source.clip = sound.clip;
+            sound.source.playOnAwake = false;
+        }
+
+        AdjustSoundValues();
     }
 
-    public void PlaySFX(string clipName)
+    private void Update()
     {
-        source.loop = false;
+        AdjustSoundValues();
 
         foreach(Sound sound in sounds)
         {
-            if (sound.name == clipName)
-            {
-                AdjustSoundValues(source, sound);
-                source.PlayOneShot(sound.clip);
-            }
-                
+            sound.source.volume = sound.volume;
         }
     }
 
-    public void PlayOnLoop()
+    public void PlayAudio(string clipName)
     {
-        source.loop = true;
-
-        
-
+        foreach (Sound sound in sounds)
+        {
+            if (sound.name == clipName)
+            {
+                if(!sound.loop)
+                {
+                    sound.source.loop = false;
+                    sound.source.PlayOneShot(sound.clip);
+                }
+                else if (sound.loop)
+                {
+                    sound.source.loop = true;
+                    sound.source.clip = sound.clip;
+                    sound.source.Play();
+                }  
+            }    
+        }
     }
 
-    private void AdjustSoundValues(AudioSource source, Sound sound)
+    private void AdjustSoundValues()
     {
-        source.volume = sound.volume;
+        foreach(Sound sound in sounds)
+        {
+            if (sound.type == Sound.SoundType.SFX)
+                sound.volume = SFXVolume;
+
+            if (sound.type == Sound.SoundType.Music)
+                sound.volume = MusicVolume;
+        }
     }
 }

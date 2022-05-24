@@ -48,15 +48,29 @@ MonoBehaviour:
   - name: EnemyDeath
     clip: {fileID: 8300000, guid: 62f87a12223d8cf4cbdc26b9d9b967bb, type: 3}
     volume: 1
+    loop: 0
+    type: 0
+    source: {fileID: 0}
   - name: MainAttack
     clip: {fileID: 8300000, guid: 0fd71b9cc4326184aab30bfd00c6dc98, type: 3}
     volume: 1
+    loop: 0
+    type: 0
+    source: {fileID: 0}
   - name: TurretSummon
     clip: {fileID: 8300000, guid: be1a439f4b976114dbea57c60829ec78, type: 3}
     volume: 1
+    loop: 0
+    type: 0
+    source: {fileID: 0}
   - name: TreeHit
     clip: {fileID: 8300000, guid: 221683c53355204488e8fd36b525d886, type: 3}
     volume: 1
+    loop: 0
+    type: 0
+    source: {fileID: 0}
+  SFXVolume: 1
+  MusicVolume: 1
 --- !u!82 &7196229238736697784
 AudioSource:
   m_ObjectHideFlags: 0

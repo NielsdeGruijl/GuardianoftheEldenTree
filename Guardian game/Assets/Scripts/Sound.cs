@@ -11,12 +11,11 @@ public class Sound
 
     public float volume;
 
+    public bool loop;
+
     public SoundType type;
 
-
-
-
-
+    [HideInInspector] public AudioSource source;
 
     public enum SoundType
     {

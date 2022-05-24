@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField] Text PressEText;
     [SerializeField] Text scoreText;
 
+    [Header("Settings")]
+    [SerializeField] GameObject settings;
+
     Rigidbody2D rb;
     SpriteRenderer sprite;
     AudioManager audioManager;
@@ -37,23 +40,33 @@ public class Player : MonoBehaviour
     float clickFireRate = 0.1f;
     //float holdFireRate = 0.15f;
     bool canShoot = true;
+
+    //settings variables
+    bool gamePaused = false;
     
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         audioManager = AudioManager.manager;
+
+        audioManager.PlayAudio("Music");
     }
 
 
     private void Update()
     {
-        MovementInput();
-        SpriteFlipping();
-        shoot();
-        Ability();
+        if (!gamePaused)
+        {
+            MovementInput();
+            SpriteFlipping();
+            shoot();
+            Ability();
 
-        bulletOrigin = shootPoint.transform.position;
+            bulletOrigin = shootPoint.transform.position;
+        }
+
+        PauseGame();
     }
 
     private void FixedUpdate()
@@ -76,7 +89,7 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject projectile = Instantiate(bullet, bulletOrigin, Quaternion.identity);
-                audioManager.PlaySFX("MainAttack");
+                audioManager.PlayAudio("MainAttack");
 
                 Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
 
@@ -117,7 +130,7 @@ public class Player : MonoBehaviour
         if (XP >= maxXP && Input.GetKeyDown(KeyCode.E))
         {
             Instantiate(turret, transform.position, Quaternion.identity);
-            audioManager.PlaySFX("TurretSummon");
+            audioManager.PlayAudio("TurretSummon");
             XP = 0;
             XPbar.transform.localScale = new Vector3(XP / maxXP, XPbar.transform.localScale.y);
         }
@@ -147,5 +160,23 @@ public class Player : MonoBehaviour
         {
             dir.x = originalX;
         }
+    }
+
+    void PauseGame()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape) && !gamePaused)
+        {
+            Time.timeScale = 0;
+            gamePaused = true;
+            Debug.Log("Game Paused!");
+        }
+        else if(Input.GetKeyUp(KeyCode.Escape) && gamePaused)
+        {
+            Time.timeScale = 1;
+            gamePaused = false;
+            Debug.Log("Game Resumed!");
+        }
+
+        settings.SetActive(gamePaused);
     }
 }

@@ -17,6 +17,11 @@ public class Settings : MonoBehaviour
         SetAudioVolume();
     }
 
+    private void Update()
+    {
+        SetAudioVolume();
+    }
+
     void SetAudioVolume()
     {
         audioManager.SFXVolume = SFXSlider.value;
