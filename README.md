@@ -3,7 +3,7 @@ This game was made for a 45 hour game jam hosted by my study organization and th
 
 The aim of the game is to defend the "Elden Tree" from the enemies that move from the edge of the screen towards the tree. If an enemy collides with the tree it dies and the tree loses hit points, if the tree runs out of hit points the game ends. Killing enemies charges up a bar which if full lets you spawn a turret which helps you defend by shooting enemies in a circular area around it for a short duration. The game is played in an endless mode, meaning the goal of the player is to beat their previous high score.
 
-CONTROLS:
+CONTROLS:  
 W - move forward  
 A - move left  
 S - move backward  
