@@ -1,10 +1,23 @@
 # GuardianoftheEldenTree (45H GameJam)
-Guardian of the Elden Tree is a game where little goblins are attacking the Elden Tree and your job as the Guardian fairy is to protect the tree.
+This game was made for a 45 hour game jam hosted by my study organization and the project was built in the Unity game engine. All code and sprites are original work by me, the audio assets are credited at the bottom of the description.
 
-This game was made as a solo developer during a 45 hour game jam hosted by my study organization.
+The aim of the game is to defend the "Elden Tree" from the enemies that move from the edge of the screen towards the tree. If an enemy collides with the tree it dies and the tree loses hit points, if the tree runs out of hit points the game ends. Killing enemies charges up a bar which if full lets you spawn a turret which helps you defend by shooting enemies in a circular area around it for a short duration. The game is played in an endless mode, meaning the goal of the player is to beat their previous high score.
+
+CONTROLS:
+W - move forward
+A - move left
+S - move backward
+D - move right
+E - place turret
+Mouse1 - shoot
+
+[![Gameplay Video](ScreenShots/GotETVideoThumbnail.JPEG?raw=true)](https://youtu.be/U9Kjox95Aug)
 
 ![Main Menu Image](ScreenShots/MainMenu.png?raw=true)
 
 ![Gameplay Image 1](ScreenShots/GamePlay2.png?raw=true)
 
 ![Gameplay Image 2](ScreenShots/GamePlay1.png?raw=true)
+
+
+Audio assets: (NO LONGER AVAILABLE) Cafofo (2021) [Fantasy Sounds Bundle](https://assetstore.unity.com/?q=fantasy%20sounds%20bundle&orderBy=1)
