@@ -11,7 +11,7 @@ D - move right
 E - place turret
 Mouse1 - shoot
 
-[![Gameplay Video](https://youtu.be/U9Kjox95Aug)
+![Gameplay Video](https://youtu.be/U9Kjox95Aug)
 
 ![Main Menu Image](ScreenShots/MainMenu.png?raw=true)
 
